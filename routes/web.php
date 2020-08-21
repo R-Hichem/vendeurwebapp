@@ -20,3 +20,15 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/accueil', 'PlatformController@index');
+
+Route::get('/products/{id}', 'PlatformController@show');
+
+Route::post('/addtocart', 'PlatformController@addToCart');
+
+Route::get('/cart', 'PlatformController@showCart');
+
+Route::post('/checkout', 'PlatformController@checkoutIndex');
+
+Route::post('/checkout_finalize', 'PlatformController@checkoutFinalize');

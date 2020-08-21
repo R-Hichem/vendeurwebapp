@@ -17,6 +17,8 @@ class CreateOrdersTable extends Migration
             $table->bigIncrements('id');
             $table->string('code');
             $table->string('client_name');
+            $table->string('email');
+            $table->string('adresse');
             $table->float('ammount');
             $table->boolean('payed')->default(false);
             $table->boolean('shipped')->default(false);
