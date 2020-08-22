@@ -29,6 +29,10 @@ Route::post('/addtocart', 'PlatformController@addToCart');
 
 Route::get('/cart', 'PlatformController@showCart');
 
-Route::post('/checkout', 'PlatformController@checkoutIndex');
+Route::get('/checkout', 'PlatformController@checkoutIndex');
 
 Route::post('/checkout_finalize', 'PlatformController@checkoutFinalize');
+
+Route::get('/order_status', 'PlatformController@orderStatusIndex');
+
+Route::post('/order_status', 'PlatformController@orderStatus');

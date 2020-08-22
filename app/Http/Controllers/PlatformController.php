@@ -6,12 +6,16 @@ use Illuminate\Http\Request;
 use App\Product;
 use App\Order;
 use App\OrderProduct;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\OrderInfoMail;
 
 class PlatformController extends Controller
 {
     public function index(){
         $products = Product::paginate(8);
-    
+        return view('platforme.PlatformeHomePage', [
+            'products' => $products,
+        ]);
     }
 
     public function show($id){
@@ -45,16 +49,28 @@ class PlatformController extends Controller
 
     
     public function checkoutIndex(Request $request){
+        if (\Cart::isEmpty()) {
+            abort(403);
+        }
             return view('platforme.CheckoutIndex');
     }
 
+
     public function checkoutFinalize(Request $request){
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'email_confirmation' => 'required',
+            'adresse' => 'required',
+        ]);
         $order = new Order();
         $order->code = $random = \Str::random(20);
         $order->ammount = \Cart::getTotal();
         $order->payed = false;
         $order->shipped = false;
         $order->client_name = $request->name;
+        $order->email = $request->email;
+        $order->adresse = $request->adresse;
         $order->created_at = now();
         $order->updated_at = now();
         $order->save();
@@ -70,11 +86,29 @@ class PlatformController extends Controller
         }
 
         \Cart::clear();
+
+        Mail::to($order->email)->send(new OrderInfoMail($order)); 
+
         return view('platforme.CheckoutFinalized', [
             'code' => $order->code,
             'email' => $order->email,
         ]);
     }
 
+    public function orderStatusIndex(Request $request){
+            return view('platforme.OrderStatusIndex');
+    }
+    public function orderStatus(Request $request){
+        $request->validate([
+            'code' => 'required|exists:orders,code',
+        ]);
 
+        $order = Order::where('code', $request->code)->first();
+        $order_products = $order->hasMany('App\OrderProduct')->get();
+            return view('platforme.OrderStatus', [
+                'order' => $order,
+                'order_products' => $order_products,
+            ]);
+       
+    }
 }

@@ -18,10 +18,7 @@
         </ul>
 
         @if (!$isEmpty)
-        <form action="/checkout" method="POST" >
-            @csrf
-            <button type="submit">GO TO CHECKOUT</button>  
-        </form>
+            <a href="/checkout">GO TO CHECKOUT</a>  
         @endif
     </div>
 @endsection 
