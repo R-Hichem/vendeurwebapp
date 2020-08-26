@@ -8,6 +8,7 @@ use App\Http\Resources\TransactionResource;
 use App\Order;
 use App\Transaction;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use App\Events\TransactionSuccess;
 
 
 class OrderController extends Controller
@@ -17,7 +18,6 @@ class OrderController extends Controller
         $response = [
             'data' => OrderResource::collection(Order::orderByDesc('id')->get()),
         ];
-
         return response($response, 200);
     }
 
@@ -34,7 +34,6 @@ class OrderController extends Controller
     {
 
         $history = Transaction::where('user_id', request()->user()->id)->get();
-
         $response = [
             'data' => TransactionResource::collection($history)
         ];
@@ -61,6 +60,27 @@ class OrderController extends Controller
         return response(['message' => 'success'], 200);
     }
 
+    public function addFromOtherServer(Request $request)
+    {
+        // event(new TransactionSuccess('stuff works :D ', 10));
+        // return "works so far";
+        $order = Order::find(request('order_id'));
+        $order->payed = true;
+        $order->updated_at = now();
+        $order->save();
+       
+
+        $transaction = new Transaction();
+        $transaction->user_id = request('vendeur_id');
+        $transaction->order_id = $order->id;
+        $transaction->created_at = now();
+        $transaction->updated_at = now();
+        $transaction->save();
+
+        event(new TransactionSuccess('stuff works :D ', request('order_id')));
+        return response(['message' => 'success'], 200);
+    }
+
     public function issueQR(Request $request)
     {
         $order = Order::find($request->order_id);
@@ -76,7 +96,7 @@ class OrderController extends Controller
 
         $response = [
             'data' => [
-                'qr' => "data:image/png;base64," . base64_encode(QrCode::format('png')->size(500)->generate('{"to" : "Compa Ny", "account_code": "R4ND0MC0D3", "ammount" : ' . $order->ammount . '}')),
+                'qr' => "data:image/png;base64," . base64_encode(QrCode::format('png')->size(500)->generate('{"to" : "Compa Ny", "order_id" : '.$request->order_id.', "vendeur_id" : '.$request->user()->id.', "account_code": "R4ND0MC0D3", "ammount" : ' . $order->ammount . '}')),
             ],
         ];
 

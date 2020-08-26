@@ -21,9 +21,12 @@ class TransactionSuccess implements ShouldBroadcast
      *
      * @return void
      */
-    public function __construct($message)
+    public function __construct($message, $order_id)
     {
-        $this->message = $message;
+        $this->message =[
+            'id' => $order_id,
+            'message' =>  $message
+        ];
     }
 
     /**
@@ -33,6 +36,11 @@ class TransactionSuccess implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('transactions');
+        return new Channel('transactions-channel');
+    }
+
+     public function broadcastAs()
+    {
+      return 'transactions-event';
     }
 }
