@@ -38,6 +38,8 @@ Route::middleware('auth:sanctum')->post('/orders/history', 'OrderController@hist
 
 Route::middleware('auth:sanctum')->post('/orders/{order_id}', 'OrderController@add');
 
+Route::middleware('auth:sanctum')->post('/orderswithjson/{order_id}', 'OrderController@addWithJsonDetails');
+
 Route::post('/ordersFromOtherServer', 'OrderController@addFromOtherServer');
 
 Route::middleware('auth:sanctum')->post('/orders/issueQR/{order_id}', 'OrderController@issueQR');

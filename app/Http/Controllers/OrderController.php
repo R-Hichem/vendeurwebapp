@@ -9,7 +9,7 @@ use App\Order;
 use App\Transaction;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use App\Events\TransactionSuccess;
-
+use App\TransactionDetails;
 
 class OrderController extends Controller
 {
@@ -60,6 +60,30 @@ class OrderController extends Controller
         return response(['message' => 'success'], 200);
     }
 
+    public function addWithJsonDetails(Request $request)
+    {
+        $order = Order::find(request('order_id'));
+        $order->payed = true;
+        $order->updated_at = now();
+        $order->save();
+
+        $transaction = new Transaction();
+
+        $transaction->user_id = request()->user()->id;
+        $transaction->order_id = $order->id;
+        $transaction->created_at = now();
+        $transaction->updated_at = now();
+        $transaction->save();
+
+        $trasanctionDetails = new TransactionDetails();
+        $trasanctionDetails->transaction_id = $transaction->id;
+        $trasanctionDetails->details = $request->details;
+        $trasanctionDetails->save();
+
+        
+        return response(['message' => 'success'], 200);
+    }
+
     public function addFromOtherServer(Request $request)
     {
         // event(new TransactionSuccess('stuff works :D ', 10));
@@ -76,6 +100,18 @@ class OrderController extends Controller
         $transaction->created_at = now();
         $transaction->updated_at = now();
         $transaction->save();
+
+        $trasanctionDetails = new TransactionDetails();
+        $trasanctionDetails->transaction_id = $transaction->id;
+        $json = [
+            'type' => 'mobile_Qr',
+            'details' => [
+                'client_os' => 'android',
+                'vendeur_od' => 'android'
+            ]
+        ];
+        $trasanctionDetails->details = json_encode($json);
+        $trasanctionDetails->save();
 
         event(new TransactionSuccess('stuff works :D ', request('order_id')));
         return response(['message' => 'success'], 200);
