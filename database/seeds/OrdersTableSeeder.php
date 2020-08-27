@@ -24,15 +24,7 @@ class OrdersTableSeeder extends Seeder
         ]);
 
         
-        DB::table('order_products')->insert([
-            "order_id" => 1,
-            "product_id" => 2,
-            "quantity" => 5,
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
-
-
+  
 
         DB::table('orders')->insert([
             'code' => 'N0TZXSZE',
@@ -46,13 +38,7 @@ class OrdersTableSeeder extends Seeder
             'updated_at' => now(),
         ]);
 
-          DB::table('order_products')->insert([
-            "order_id" => 2,
-            "product_id" => 3,
-            "quantity" => 4,
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
+        
         DB::table('orders')->insert([
             'code' => 'P4ND0R4R3F',
             'client_name' => 'client 3',
@@ -64,13 +50,7 @@ class OrdersTableSeeder extends Seeder
             'created_at' => now(),
             'updated_at' => now(),
         ]);
- DB::table('order_products')->insert([
-            "order_id" => 3,
-            "product_id" => 1,
-            "quantity" => 4,
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
+
         DB::table('orders')->insert([
             'code' => 'CL4P-TP',
             'client_name' => 'client 4',
@@ -82,19 +62,6 @@ class OrdersTableSeeder extends Seeder
             'created_at' => now(),
             'updated_at' => now(),
         ]);
-        DB::table('order_products')->insert([
-            "order_id" => 4,
-            "product_id" => 6,
-            "quantity" => 4,
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
-        DB::table('order_products')->insert([
-            "order_id" => 4,
-            "product_id" => 8,
-            "quantity" => 14,
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
+        
     }
 }
