@@ -146,7 +146,7 @@ class OrderController extends Controller
             'total_shipped' => Order::where('shipped', 1)->count(),
             'total_non_payed' => Order::where('payed', 0)->count(),
             'total_non_shipped' => Order::where('shipped', 0)->count(),
-            'total_transactions' => Transaction::where('user_id', request()->user()->id)
+            'total_transactions' => Transaction::where('user_id', request()->user()->id)->count()
         ];
     }
 }
