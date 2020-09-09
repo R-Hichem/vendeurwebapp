@@ -72,7 +72,12 @@
           @error('adresse')
                <p style="color:red"> {{$message}} </p> <br>
             @enderror
-            <button type="submit">Finaliser la commande</button>
+             <div>
+                        <button type="submit" style="border: none; background: none; margin-top:25px; color: white">
+                            <a class="primary-btn" style="border-radius:20px">Finaliser la Commande</a>
+                        </button>
+                    </div>
+            
         </form>
     </div>
 </div>
