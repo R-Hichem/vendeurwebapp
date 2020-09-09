@@ -79,7 +79,7 @@
                         <ul>
                             <li>Total <span> {{$product->quantity * $product->associatedModel->unit_price}} DZD </span></li>
                         </ul>
-                        <a href="/checkout" class="primary-btn">Proceed to checkout</a>
+                        <a href="/checkout" class="primary-btn">Finaliser la Commande</a>
                     </div>
                 </div>
             </div>

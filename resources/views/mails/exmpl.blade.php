@@ -1,13 +1,13 @@
 
 @component('mail::message')
-Hello **{{$name}}**,  {{-- use double space for line break --}}
-Thank you for choosing US!
+Bonjour **{{$name}}**,  {{-- use double space for line break --}}
+Merci de nous avoir choisis!
 
-Voici Votre Code de commande que vous pouvez utilser pour suivre l'éta de votre commande 
+Voici le code pour suivre l'éta de votre commande 
 **{{$code}}**
 @component('mail::button', ['url' => $link])
 Suivre Ma Commande
 @endcomponent
-Sincerely,  
-THE BEST TEAM, THE GREATEST TEAM, VERY VERY GREAT TEAM, team.
+Cordialement,  
+Compa Ny.
 @endcomponent

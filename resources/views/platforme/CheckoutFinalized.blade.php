@@ -6,5 +6,5 @@
 
 @section('content')
     <h2> Votre commande a bien été enregistré !</h2>
-    <h3> un email a été envoyé a l'adresse {{$email}} contenant un code pour tracer votre commande </h3>
+    <h3> un email a été envoyé a l'adresse <b> {{$email}} </b> contenant un code pour tracer votre commande </h3>
 @endsection 
