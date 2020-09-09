@@ -43,3 +43,5 @@ Route::middleware('auth:sanctum')->post('/orderswithjson/{order_id}', 'OrderCont
 Route::post('/ordersFromOtherServer', 'OrderController@addFromOtherServer');
 
 Route::middleware('auth:sanctum')->post('/orders/issueQR/{order_id}', 'OrderController@issueQR');
+
+Route::middleware('auth:sanctum')->post('/informations', 'OrderController@informations');

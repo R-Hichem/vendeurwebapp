@@ -138,4 +138,15 @@ class OrderController extends Controller
 
         return response($response, 200);
     }
+
+    public function informations(Request $request){
+        return [
+            'total_orders' => Order::all()->count(),
+            'total_payed' => Order::where('payed', 1)->count(),
+            'total_shipped' => Order::where('shipped', 1)->count(),
+            'total_non_payed' => Order::where('payed', 0)->count(),
+            'total_non_shipped' => Order::where('shipped', 0)->count(),
+            'total_transactions' => Transaction::where('user_id', request()->user()->id)
+        ];
+    }
 }
