@@ -12,7 +12,7 @@ use App\Mail\OrderInfoMail;
 class PlatformController extends Controller
 {
     public function index(){
-        $products = Product::paginate(8);
+        $products = Product::paginate(9);
         return view('platforme.PlatformeHomePage', [
             'products' => $products,
         ]);
@@ -36,7 +36,7 @@ class PlatformController extends Controller
             'quantity' => $request->quantity,
             'associatedModel' => $product
         ]); 
-        return redirect()->back()->with('status', 'PRODUCT ADDED TO THE CART YEAH !!!');
+        return redirect()->back()->with('status', 'Produit ajouté au pannier !');
         }
 
     public function showCart(Request $request){

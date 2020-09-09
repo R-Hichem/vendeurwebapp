@@ -37,4 +37,8 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function history(){
+        return Transaction::where('user_id', $this->id)->get();
+    }
 }
