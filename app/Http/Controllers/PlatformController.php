@@ -58,10 +58,19 @@ class PlatformController extends Controller
 
     public function checkoutFinalize(Request $request){
         $request->validate([
-            'name' => 'required',
-            'email' => 'required',
+            'name' => ['required', 'regex:/^[a-zA-Z\s]*$/'],
+            'email' => 'required|email|confirmed',
             'email_confirmation' => 'required',
             'adresse' => 'required',
+        ],[
+            'name.required' => "Veillez saisir votre Nom et Prénom !",
+            'name.regex' => "Nom et Prénom ne peux contenir que des lettres et espaces !",
+            'email.required' => "Veillez saisir votre adresse mail !",
+            'email.email' => "Veillez saisir une adresse mail valide !",
+            'email_confirmation.required' => "",
+            'email_confirmation.confirmed' => "les deux adresses mail ne correspondent pas",
+            'adresse.required' => "Veillez saisir votre adresse",
+
         ]);
         $order = new Order();
         $order->code = $random = \Str::random(20);

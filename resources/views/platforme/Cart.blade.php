@@ -42,7 +42,7 @@
                             @foreach ($products as $product)
                                 <tr>
                                     <td class="cart__product__item">
-                                        <img src="/img/product/details/product-1.jpg" alt="" style="width: 90px; height:90px">
+                                        <img src="{{$product->associatedModel->image_url}}" alt="" style="width: 90px; height:90px">
                                         <div class="cart__product__item__title">
                                             <h6>{{$product->name}}</h6>
                                             

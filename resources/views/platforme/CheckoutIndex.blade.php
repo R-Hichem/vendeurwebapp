@@ -46,28 +46,28 @@
             @csrf
         <div class="checkout__form__input">
             <p>Nom et Prénom <span>*</span></p>
-            <input type="text" name="name">
+            <input type="text" name="name" value="{{old('name')}}">
         </div>
           @error('name')
                <p style="color:red"> {{$message}} </p> <br>
             @enderror
         <div class="checkout__form__input">
             <p>Email <span>*</span></p>
-            <input type="text" name="email">
+            <input type="text" name="email" value="{{old('email')}}">
         </div>
           @error('email')
                <p style="color:red"> {{$message}} </p> <br>
             @enderror
         <div class="checkout__form__input">
             <p>Confirmez votre Email<span>*</span></p>
-            <input type="text" name="email_confirmation">
+            <input type="text" name="email_confirmation" value="{{old('email_confirmation')}}">
         </div>
           @error('email_confirmation')
                <p style="color:red"> {{$message}} </p> <br>
             @enderror
         <div class="checkout__form__input">
             <p>adresse <span>*</span></p>
-            <input type="text" name="adresse">
+            <input type="text" name="adresse"  value="{{old('adresse')}}">
         </div>
           @error('adresse')
                <p style="color:red"> {{$message}} </p> <br>
